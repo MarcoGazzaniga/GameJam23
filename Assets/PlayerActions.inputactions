@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerActions",
     "maps": [
         {
             "name": "Player",
@@ -16,17 +16,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "5065b2c8-07ff-44ed-9ab2-de6ced9a7efa",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "376d5d8c-86a1-40a5-9206-67ac14d03448",
@@ -63,7 +52,7 @@
                 {
                     "name": "left",
                     "id": "303dcc7c-d05c-41d2-b039-8b861d283f5a",
-                    "path": "",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -74,7 +63,7 @@
                 {
                     "name": "right",
                     "id": "bc761e95-95e7-4ad3-9fa6-198e3255b435",
-                    "path": "",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
