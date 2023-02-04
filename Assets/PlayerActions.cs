@@ -41,7 +41,7 @@ public partial class @PlayerActionScript : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""376d5d8c-86a1-40a5-9206-67ac14d03448"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
