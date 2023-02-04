@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
             }
             if (targetPosition != currentPositionVector2 + offset) {
                 targetPosition = currentPositionVector2 + offset;
-                BroadcastMessage("OnMovement");
+                BroadcastMessage("OnMovement", offset);
             }
             isMoving = true;
         } else {
