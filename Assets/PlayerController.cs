@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public float moveSpeed;
     Vector2 targetPosition;
     PlayerActionScript actions;
 
     bool isMoving;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         actions = new PlayerActionScript();
         actions.Player.Enable();
 
@@ -19,8 +17,11 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
+        HandleMovement();
+    }
+
+    private void HandleMovement() {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
         Vector2 currentPositionVector2 = transform.position;
         if (!isMoving) {
@@ -28,7 +29,10 @@ public class PlayerController : MonoBehaviour
             if (offset.x != 0 && offset.y != 0) {
                 offset.x = 0;
             }
-            targetPosition = currentPositionVector2 + offset;
+            if (targetPosition != currentPositionVector2 + offset) {
+                targetPosition = currentPositionVector2 + offset;
+                BroadcastMessage("OnMovement");
+            }
             isMoving = true;
         } else {
             if (currentPositionVector2 == targetPosition) {
