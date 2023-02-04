@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour {
     Vector2 targetPosition;
     PlayerActionScript actions;
 
+    [SerializeField]
+    LayerMask collisionLayer;
+
     bool isMoving;
     // Start is called before the first frame update
     void Start() {
@@ -30,9 +33,14 @@ public class PlayerController : MonoBehaviour {
             if (offset.x != 0 && offset.y != 0) {
                 offset.x = 0;
             }
-            if (targetPosition != currentPositionVector2 + offset) {
-                targetPosition = currentPositionVector2 + offset;
-                BroadcastMessage("OnMovement", offset);
+            Vector2 target = currentPositionVector2 + offset;
+            if (targetPosition != target) {
+                if (Physics2D.OverlapCircle(target, .1f, collisionLayer)) {
+
+                } else {
+                    targetPosition = currentPositionVector2 + offset;
+                    BroadcastMessage("OnMovement");
+                }
             }
             isMoving = true;
         } else {
