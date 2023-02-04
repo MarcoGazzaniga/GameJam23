@@ -23,11 +23,10 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
         Vector2 currentPositionVector2 = transform.position;
-        Vector2 offset = actions.Player.Movement.ReadValue<Vector2>();
         if (!isMoving) {
+            Vector2 offset = actions.Player.Movement.ReadValue<Vector2>();
             if (offset.x != 0 && offset.y != 0) {
-                offset.Set(0, offset.y);
-                offset = offset.normalized;
+                offset.x = 0;
             }
             targetPosition = currentPositionVector2 + offset;
             isMoving = true;
