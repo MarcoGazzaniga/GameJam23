@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour {
         actions = new PlayerActionScript();
         actions.Player.Enable();
 
-        isMoving = false;
+        targetPosition = transform.position;
+        isMoving = true;
     }
 
     // Update is called once per frame
