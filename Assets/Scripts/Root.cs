@@ -28,6 +28,13 @@ public class Root : MonoBehaviour
         ChoiseBend(_prevPosTile, _currentPosTile, offset);
     }
 
+    void OnAttack(Vector2 offset) {
+        _prevPosTile = _currentPosTile;
+        _currentPosTile = _bodyTilemap.WorldToCell(transform.position);
+
+        ChoiseBend(_prevPosTile, _currentPosTile, offset);
+    }
+
     private void PlaceTale(Vector3Int pos, TileBase tile)
     { 
         _bodyTilemap.SetTile(pos, tile);
@@ -35,10 +42,10 @@ public class Root : MonoBehaviour
 
     private void ChoiseBend(Vector3Int prevTile, Vector3Int curTile, Vector2 offset)
     {
-        Vector3Int newOffset = new Vector3Int ((int)offset.x, (int)offset.y, 0);
-        
+        Vector3Int previousDirection = curTile - prevTile;
+        previousDirection.Clamp(Vector3Int.one * -1, Vector3Int.one);
         //arriviamo da destra
-        if (curTile - prevTile == Vector3Int.left)
+        if (previousDirection == Vector3Int.left)
         {
             if (offset.x < 0)
             {
@@ -54,7 +61,7 @@ public class Root : MonoBehaviour
             }
         }
 
-        if (curTile - prevTile == Vector3Int.right)
+        if (previousDirection == Vector3Int.right)
         {
             if (offset.x > 0)
             {
@@ -70,7 +77,7 @@ public class Root : MonoBehaviour
             }
         }
 
-        if (curTile - prevTile == Vector3Int.up)
+        if (previousDirection == Vector3Int.up)
         {
             if (offset.y > 0)
             {
@@ -86,7 +93,7 @@ public class Root : MonoBehaviour
             }
         }
 
-        if (curTile - prevTile == Vector3Int.down)
+        if (previousDirection == Vector3Int.down)
         {
             if (offset.y < 0)
             {
