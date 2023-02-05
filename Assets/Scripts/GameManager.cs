@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _speed = 2f;
     [SerializeField] bool _button;
 
+    [Header("Animal List")]
+    [SerializeField] Animal[] _animalList;
 
     private void Awake()
     {
@@ -21,12 +23,22 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        MoveCamera();
-        if (Input.GetKeyDown(KeyCode.L))
+        //MoveCamera();
+        OnSuccess();
+        OnGameOver();        
+    }
+
+    private void OnSuccess()
+    {
+        if (AreAnimalsDeath())
         {
             _levelManager.LoadNextLevel();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+    }
+
+    private void OnGameOver()
+    {
+        if (_level._moves == 0)
         {
             _levelManager.ReloadLevel();
         }
@@ -53,10 +65,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RemoveMoves()
+    public void RemoveMoves()
     {
-        //onMovement()
-        //_levelMoves --
-
-    }    
+        _level._moves--;
+    }
+    
+    private bool AreAnimalsDeath()
+    {
+        foreach(Animal animal in _animalList)
+        {
+            if(animal.gameObject.activeInHierarchy)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

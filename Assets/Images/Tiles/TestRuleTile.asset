@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: TestRuleTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 1419407848, guid: 65c513b948f733d4a92a26ee1e11fc62, type: 3}
+  m_DefaultSprite: {fileID: 318831315, guid: 65c513b948f733d4a92a26ee1e11fc62, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 2
   m_TilingRules:
