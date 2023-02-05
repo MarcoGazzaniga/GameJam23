@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
@@ -6,12 +9,14 @@ public class GameManager : MonoBehaviour
     private LevelManager _levelManager;
     private Level _level;
 
+    [SerializeField] Text _moves;
+
     [Header("Camera controls")]
     [SerializeField] Camera _mainCamera;
     [SerializeField] Vector3 _posCameraTree = new Vector3(0.5f, 13, -10);
     [SerializeField] Vector3 _posCameraLevel = new Vector3(0f, 1.5f, -10);
     [SerializeField] float _speed = 2f;
-    [SerializeField] bool _button;
+    public bool _button = false;
 
     [Header("Animal List")]
     [SerializeField] Animal[] _animalList;
@@ -24,8 +29,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //MoveCamera();
+        UpdateMoves();
         OnSuccess();
-        OnGameOver();        
+        OnGameOver();
     }
 
     private void OnSuccess()
@@ -44,26 +50,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MoveCamera()
+    private void UpdateMoves()
     {
-        
-        if (_button)
-        {
-            
-            _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraTree, _speed * Time.deltaTime);
-            _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 60, (0.8f)*Time.deltaTime);
-            if (((_mainCamera.fieldOfView - 60f) < 0.05f))
-                _mainCamera.fieldOfView = 60;
-        }
-        else
-        {
-            
-            _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraLevel, _speed * Time.deltaTime);
-            _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 70, (0.8f) * Time.deltaTime);
-            if ((Mathf.Abs(_mainCamera.fieldOfView - 70f) < 0.05f))
-                _mainCamera.fieldOfView = 70;
-        }
+        _moves.text = $"Mosse: {_level._moves}";
     }
+
+    private void MoveCameraDown()
+    {
+        _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraLevel, _speed * Time.deltaTime);
+        _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 70, (0.8f) * Time.deltaTime);
+        if ((Mathf.Abs(_mainCamera.fieldOfView - 70f) < 0.05f))
+            _mainCamera.fieldOfView = 70;
+    }
+
+
 
     public void RemoveMoves()
     {
@@ -81,4 +81,31 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
+
+    //public void PlayButton()
+    //{
+    //    StartCoroutine(MoveCameraDown());
+    //}
+
+    
+
+    //private void MoveCamera()
+    //{
+
+    //    if (_button)
+    //    {            
+    //        _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraTree, _speed * Time.deltaTime);
+    //        _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 60, (0.8f)*Time.deltaTime);
+    //        if (((_mainCamera.fieldOfView - 60f) < 0.05f))
+    //            _mainCamera.fieldOfView = 60;
+    //    }
+    //    else
+    //    {
+
+    //        _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraLevel, _speed * Time.deltaTime);
+    //        _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 70, (0.8f) * Time.deltaTime);
+    //        if ((Mathf.Abs(_mainCamera.fieldOfView - 70f) < 0.05f))
+    //            _mainCamera.fieldOfView = 70;
+    //    }
+    //}
 }
