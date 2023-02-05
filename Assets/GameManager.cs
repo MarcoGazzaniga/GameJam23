@@ -1,8 +1,11 @@
 using UnityEngine;
-using VSCodeEditor;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
 {
+    private LevelManager _levelManager;
+    private Level _level;
+
     [Header("Camera controls")]
     [SerializeField] Camera _mainCamera;
     [SerializeField] Vector3 _posCameraTree = new Vector3(0.5f, 13, -10);
@@ -10,61 +13,50 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _speed = 2f;
     [SerializeField] bool _button;
 
-    [Header("Levels")]
-    [SerializeField] GameObject[] _allLevels;
 
+    private void Awake()
+    {
+        _levelManager = FindObjectOfType<LevelManager>();
+        _level = FindObjectOfType<Level>();
+    }
     private void Update()
     {
         MoveCamera();
-    }
-    public void GameOver()
-    {     
-        //change tree
-        
-        
-        
-
-        //change level
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            _levelManager.LoadNextLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _levelManager.ReloadLevel();
+        }
     }
 
     private void MoveCamera()
     {
+        
         if (_button)
         {
+            
             _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraTree, _speed * Time.deltaTime);
-            if (_mainCamera.transform.position == _posCameraTree)
-            {
-                _mainCamera.orthographic = false;
-                ChangeLevel();
-            }
+            _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 60, (0.8f)*Time.deltaTime);
+            if (((_mainCamera.fieldOfView - 60f) < 0.05f))
+                _mainCamera.fieldOfView = 60;
         }
         else
         {
+            
             _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _posCameraLevel, _speed * Time.deltaTime);
-            if (_mainCamera.transform.position == _posCameraLevel)
-                _mainCamera.orthographic = true;
+            _mainCamera.fieldOfView = Mathf.Lerp(_mainCamera.fieldOfView, 70, (0.8f) * Time.deltaTime);
+            if ((Mathf.Abs(_mainCamera.fieldOfView - 70f) < 0.05f))
+                _mainCamera.fieldOfView = 70;
         }
     }
 
-    private void ChangeLevel()
+    private void RemoveMoves()
     {
-        int actualLevelIndex = FindActualLevelIndex();
-        Debug.Log($"Atual Level: {actualLevelIndex}");
-        if (actualLevelIndex != _allLevels.Length-1)
-        {
-            _allLevels[actualLevelIndex].SetActive(false);
-            actualLevelIndex++;
-            _allLevels[actualLevelIndex].SetActive(true);
-        }
-    }
+        //onMovement()
+        //_levelMoves --
 
-    private int FindActualLevelIndex()
-    {
-        for(int i = 0; i < _allLevels.Length; i++)
-        {
-            if (_allLevels[i].activeSelf)
-                return i;
-        }
-        return -1;
-    }
+    }    
 }
