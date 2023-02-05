@@ -1796,6 +1796,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 493937227651393064, guid: 099a837fa8434b0439289a0f2c9042f8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeb6c71bb1a46b7439e0c6d65b226e5a, type: 2}
     - target: {fileID: 5292057095883937628, guid: 099a837fa8434b0439289a0f2c9042f8, type: 3}
       propertyPath: m_Name
       value: Scena 3D
